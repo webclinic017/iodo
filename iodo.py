@@ -138,8 +138,6 @@ def menu(account, api):
 
 
 def main():
-    #APCA_API_KEY_ID = 'PKTLIY1IA0Z9SIQV3CDB'
-    #APCA_API_SECRET_KEY = 'zvJn3SK86gF8SeI00nQfZmuTSKoMbwi25lWu8xv1'
     APCA_API_BASE_URL = 'https://paper-api.alpaca.markets'
     APCA_API_KEY_ID = loadAPIKey()
     APCA_API_SECRET_KEY = loadSecretKey()
