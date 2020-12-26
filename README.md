@@ -12,3 +12,9 @@ Run the iodo.py file.
 # todo
 * finish writing up the functions to view and buy/sell shares.
 * write the algorithm for trading.
+* get price streaming through websockets working (not sure if api supports this
+
+# working
+* account info
+* viewing portfolio
+* viewing stock asking and bidding prices (not sure if im using correct endpoint for this

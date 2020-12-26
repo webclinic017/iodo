@@ -25,8 +25,8 @@ def displayMenu():
     print(version)
     print('\n1) View Account Info')
     print('2) View Portfolio')
-    print('3) Buy or Sell Shares')
-    print('4) Initiate Trading')
+    print('3) View and Buy/Sell Shares')
+    print('4) Initiate Algorithmic Trading')
     print('5) Exit\n')
     return
 
@@ -35,13 +35,13 @@ def portfolio(account):
     try:
         portfolio = account.list_positions()
         for position in portfolio:
-            print('{}   | {}    | {}    | {}    | {}    | {}', 
+            print('{}\t| {}\t| {}\t| {}\t| {}\t| {}'.format( 
                     position.symbol, 
                     position.qty,
                     position.market_value,
                     position.unrealized_plpc,
                     position.current_price, 
-                    position.change_today)
+                    position.change_today))
         print('\n')
     except AttributeError:
         print('You have no positions currently.\n')
@@ -58,73 +58,80 @@ def displayMarketMenu():
     return
 
 
-def marketMenu(account):
+def marketMenu(account, api):
     while True:
         try:
             userAction = int(input('What would you like to do?: '))
             if userAction == 1:
-                symbol = str(input('Please enter the symbol you would like to view or 0 to exit: '))
-                if symbol == '0':
+                symbols  = str(input('Please enter the symbol(s) you would like to view or 0 to exit\n(You can enter more than one symbol by separating them with a space.): '))
+                if symbols == '0':
                     displayMarketMenu()
-                    marketMenu(account)
+                    marketMenu(account, api)
                 else:
                     displayMarketMenu()
-                    viewStock(account, symbol)
-                    marketMenu(account)
+                    viewStock(api, symbols.upper())
+                    marketMenu(account, api)
             elif userAction == 2:
                 displayMarketMenu()
                 pass
-                marketMenu(account)
+                marketMenu(account, api)
             elif userAction == 3:
                 displayMarketMenu()
                 pass
-                marketMenu(account)
+                marketMenu(account, api)
             elif userAction == 4:
                 displayMenu()
-                menu(account)
+                menu(account, api)
             else:
                 displayMarketMenu()
                 print('Invalid input\n')
-                marketMenu(account)
+                marketMenu(account, api)
         except ValueError:
             displayMarketMenu()
             print('Invalid input\n')
-            marketMenu(account)
+            marketMenu(account, api)
         else:
             break   
     return 
 
 
-def viewStock(account, symbol):
-
+def viewStock(api, symbols):
+    symbolList = sorted(symbols.split())
+    for symbol in symbolList:
+        price = api.get_last_quote(symbol)
+        print('{}\t| Asking: ${}\t| Bidding: ${}'.format(
+            symbol, 
+            price.askprice, 
+            price.bidprice))
+    print('\n')
     return
 
 
-def menu(account):
+def menu(account, api):
     while True:
         try:
             userAction = int(input('What would you like to do?: '))
             if userAction == 1:
                 displayMenu()
                 accountInfo(account)       
-                menu(account)
+                menu(account, api)
             elif userAction == 2:
                 displayMenu()
                 portfolio(account)
-                menu(account)
+                menu(account, api)
             elif userAction == 3:
                 displayMarketMenu()
-                marketMenu(account)
+                marketMenu(account, api)
             elif userAction == 5:
                 break
             else:
                 displayMenu()
                 print('Invalid input\n')
-                menu(account)
+                menu(account, api)
         except ValueError:
             displayMenu()
             print('Invalid input\n')
-            menu(account)
+            menu(account, api)
         else:
             break
     return
@@ -161,7 +168,7 @@ def main():
     account = api.get_account()
     os.system('cls' if os.name == 'nt' else 'clear')
     displayMenu()
-    menu(account)
+    menu(account, api)
     return
 
 
