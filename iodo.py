@@ -7,7 +7,7 @@
 
 import os
 import alpaca_trade_api as tradeAPI
-from lib.readWriteAPI import *
+from lib.rwKeys import *
 from lib.account import *
 from lib.menu import *
 from lib.portfolio import *
