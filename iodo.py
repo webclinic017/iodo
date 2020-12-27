@@ -38,7 +38,7 @@ def main():
     os.system('cls' if os.name == 'nt' else 'clear')
     print('Validating...')
     api = tradeAPI.REST(APCA_API_KEY_ID, 
-            APCA_API_SECRET_KEY, 
+            APCA_API_SECRET_KEY,
             APCA_API_BASE_URL)
     account = api.get_account()
     os.system('cls' if os.name == 'nt' else 'clear')
