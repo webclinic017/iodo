@@ -23,15 +23,18 @@ You can add your API and secret key there if you don't want to add it within the
 3. Run `iodo.py` to start.
 
 
-### To do list
-* finish writing up the functions to view and buy/sell shares.
-* write the algorithm for trading.
-* ~~get price streaming through websockets working~~ Looks like its only available on polygon which is US residents only :(
-* extending functionality such as limit orders
-* ability look at historical data
-
 ### Working
 * account info
 * viewing portfolio
 * viewing stock asking and bidding prices (not sure if im using correct endpoint for this)
 * buying shares
+* selling shares
+
+
+### To do list
+* write the algorithm for trading.
+* ~~get price streaming through websockets working~~ Looks like its only available on polygon which is US residents only :(
+* use websockets to stream when orders get executed
+* extending functionality such as limit orders
+* ability look at historical data
+* error checking

@@ -7,11 +7,11 @@
 
 import os
 import alpaca_trade_api as tradeAPI
-from functions.readWriteAPI import *
-from functions.account import *
-from functions.menu import *
-from functions.portfolio import *
-from functions.market import *
+from lib.readWriteAPI import *
+from lib.account import *
+from lib.menu import *
+from lib.portfolio import *
+from lib.market import *
 
 
 def main():
@@ -37,7 +37,7 @@ def main():
 
     os.system('cls' if os.name == 'nt' else 'clear')
     print('Validating...')
-    api = tradeAPI.REST(APCA_API_KEY_ID, 
+    api = tradeAPI.REST(APCA_API_KEY_ID,
             APCA_API_SECRET_KEY,
             APCA_API_BASE_URL)
     account = api.get_account()
