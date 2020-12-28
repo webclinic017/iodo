@@ -8,13 +8,14 @@
 import os
 import alpaca_trade_api as tradeAPI
 from lib.rwKeys import *
-from lib.account import *
+#from lib.account import *
 from lib.menu import *
-from lib.portfolio import *
-from lib.market import *
+#from lib.portfolio import *
+#from lib.market import *
 
 
 def main():
+    #Get API keys
     APCA_API_BASE_URL = 'https://paper-api.alpaca.markets'
     APCA_API_KEY_ID = loadAPIKey()
     APCA_API_SECRET_KEY = loadSecretKey()
@@ -35,7 +36,7 @@ def main():
             else:
                 print('Please enter a valid option.')
 
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system('cls' if os.name == 'nt' else 'clear') #clear screen
     print('Validating...')
     api = tradeAPI.REST(APCA_API_KEY_ID,
             APCA_API_SECRET_KEY,
@@ -46,7 +47,7 @@ def main():
     account = api.get_account()
     os.system('cls' if os.name == 'nt' else 'clear')
     displayMenu()
-    menu(account, api, conn)
+    menu(account, api, conn) #bring up menu
     return
 
 

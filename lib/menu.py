@@ -26,12 +26,13 @@ def menu(account, api, conn):
                 menu(account, api, conn)
             elif userAction == 2:
                 displayMenu()
-                portfolio(account)
+                portfolio(api)
                 menu(account, api, conn)
             elif userAction == 3:
                 displayMarketMenu()
                 marketMenu(account, api, conn)
             elif userAction == 5:
+                print('Exiting...')
                 break
             else:
                 displayMenu()
