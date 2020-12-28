@@ -40,10 +40,13 @@ def main():
     api = tradeAPI.REST(APCA_API_KEY_ID,
             APCA_API_SECRET_KEY,
             APCA_API_BASE_URL)
+    conn = tradeAPI.StreamConn(APCA_API_KEY_ID,
+            APCA_API_SECRET_KEY,
+            APCA_API_BASE_URL)
     account = api.get_account()
     os.system('cls' if os.name == 'nt' else 'clear')
     displayMenu()
-    menu(account, api)
+    menu(account, api, conn)
     return
 
 
