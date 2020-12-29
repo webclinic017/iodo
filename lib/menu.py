@@ -2,6 +2,7 @@ import os
 from lib.account import *
 from lib.portfolio import *
 from lib.market import *
+from lib.tradealgo import *
 
 version = 'IODO v0.1'
 
@@ -30,6 +31,10 @@ def menu(account, api, conn):
                 menu(account, api, conn)
             elif userAction == 3:
                 displayMarketMenu()
+                marketMenu(account, api, conn)
+            elif userAction == 4:
+                displayMarketMenu()
+                trade(api, ticker, amount)
                 marketMenu(account, api, conn)
             elif userAction == 5:
                 print('Exiting...')
