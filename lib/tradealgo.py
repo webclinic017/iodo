@@ -1,9 +1,10 @@
 class Portfolio:
 
-    def __init__(self, capital, shares):
+    def __init__(self, capital, price):
         self.capital = capital
-        self.shares = shares
-        self.total_value = self.capital + self.shares
+        self.price = price
+        self.shares = self.capital % self.price
+        #self.total_value = self.capital + self.shares
 
 
 def trade(api, ticker, amount):

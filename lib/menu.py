@@ -33,9 +33,18 @@ def menu(account, api, conn):
                 displayMarketMenu()
                 marketMenu(account, api, conn)
             elif userAction == 4:
-                displayMarketMenu()
-                trade(api, ticker, amount)
-                marketMenu(account, api, conn)
+                ticker  = str(input('Enter the ticker you would like to trade or 0 to exit: '))
+                if ticker == '0':
+                    displayMenu()
+                    menu(account, api, conn)
+                else:
+                    capital = int(input('Enter the capital you would like to trade with: '))
+                    print('Initilizing...')
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    trade(api, ticker.upper(), capital)
+                    displayMenu()
+                    print('Trades have been logged and are available in /data/tradelogs-xxxxxxxx.txt')
+                    menu(account, api, conn)
             elif userAction == 5:
                 print('Exiting...')
                 break
