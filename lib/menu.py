@@ -12,7 +12,7 @@ def displayMenu():
     print('\n1) View Account Info')
     print('2) View Portfolio')
     print('3) View and Buy/Sell Shares')
-    print('4) Initiate Algorithmic Trading')
+    print('4) Start Trading Algorithm')
     print('5) Exit\n')
     return
 
@@ -38,12 +38,13 @@ def menu(account, api, conn):
                     displayMenu()
                     menu(account, api, conn)
                 else:
-                    capital = int(input('Enter the capital you would like to trade with: '))
                     print('Initilizing...')
                     os.system('cls' if os.name == 'nt' else 'clear')
-                    trade(api, ticker.upper(), capital)
+                    #trade(api, ticker.upper(), capital)
+                    trade = MartingaleTrader(api,conn,ticker)
+                    trade.start_trading()
                     displayMenu()
-                    print('Trades have been logged and are available in /data/tradelogs-xxxxxxxx.txt')
+                    #print('Trades have been logged and are available in /data/tradelogs-xxxxxxxx.txt')
                     menu(account, api, conn)
             elif userAction == 5:
                 print('Exiting...')

@@ -29,12 +29,13 @@ You can add your API and secret key there if you don't want to add it within the
 * viewing stock asking and bidding prices (not sure if im using correct endpoint for this)
 * buying shares
 * selling shares
+* trading algorithm (currently a modifed martingale algo from the examples alpaca provides)
 
 
 ### To do list
-* write the algorithm for trading.
-* ~~get price streaming through websockets working~~ Looks like its only available on polygon which is US residents only :(
-* use websockets to stream when orders get executed
+* write my own algorithm for trading.
+* get price streaming through websockets working
+* use websockets to stream when orders get executed (kinda working, need to be able to exit now)
 * extending functionality such as limit orders
 * ability look at historical data
 * error checking
