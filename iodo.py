@@ -17,6 +17,7 @@ from lib.menu import *
 def main():
     #Get API keys
     APCA_API_BASE_URL = 'https://paper-api.alpaca.markets'
+    APCA_API_DATA_URL = 'https://data.alpaca.markets'
     APCA_API_KEY_ID = loadAPIKey()
     APCA_API_SECRET_KEY = loadSecretKey()
 
@@ -44,10 +45,15 @@ def main():
     conn = tradeAPI.StreamConn(APCA_API_KEY_ID,
             APCA_API_SECRET_KEY,
             APCA_API_BASE_URL)
+    conn2 = tradeAPI.StreamConn(APCA_API_KEY_ID,
+            APCA_API_SECRET_KEY,
+            base_url=APCA_API_BASE_URL,
+            data_url=APCA_API_DATA_URL,
+            data_stream='alpacadatav1')
     account = api.get_account()
     os.system('cls' if os.name == 'nt' else 'clear')
     displayMenu()
-    menu(account, api, conn) #bring up menu
+    menu(account, api, conn, conn2) #bring up menu
     return
 
 

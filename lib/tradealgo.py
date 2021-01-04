@@ -18,7 +18,7 @@ def truncate(val, decimal_places):
 # The MartingaleTrader bets that streaks of increases or decreases in a stock's
 # price are likely to break, and increases its bet each time it is wrong.
 class MartingaleTrader(object):
-    def __init__(self, api, conn, symbol):
+    def __init__(self, api, conn2, symbol):
         # API authentication keys can be taken from the Alpaca dashboard.
         # https://app.alpaca.markets/paper/dashboard/overview
         #self.key_id = key_id
@@ -53,7 +53,7 @@ class MartingaleTrader(object):
 
         # The connection to the Alpaca API
         self.api = api
-        self.conn = conn
+        self.conn = conn2
 
         # Cancel any open orders so they don't interfere with this script
         self.api.cancel_all_orders()
@@ -81,11 +81,13 @@ class MartingaleTrader(object):
         #    data_stream='alpacadatav1'
         #)
         conn = self.conn
+        #print('start_trading() after conn')
 
         # Listen for second aggregates and perform trading logic
         @conn.on(r'A$', [self.symbol])
         async def handle_agg(conn, channel, data):
             self.tick_index = (self.tick_index + 1) % self.tick_size
+            print('A')
             if self.tick_index == 0:
                 # It's time to update
 
@@ -100,6 +102,7 @@ class MartingaleTrader(object):
         @conn.on(r'T\..+', [self.symbol])
         async def handle_alpaca_aggs(conn, channel, data):
             now = datetime.datetime.utcnow()
+            print('T')
             if now - self.last_trade_time < datetime.timedelta(seconds=1):
                 # don't react every tick unless at least 1 second past
                 return
@@ -119,6 +122,7 @@ class MartingaleTrader(object):
         @conn.on(r'trade_updates')
         async def handle_trade(conn, channel, data):
             symbol = data.order['symbol']
+            print('U')
             if symbol != self.symbol:
                 # The order was for a position unrelated to this script
                 return
@@ -142,7 +146,7 @@ class MartingaleTrader(object):
             elif event_type != 'new':
                 print(f'Unexpected order event type {event_type} received')
 
-            conn.run([f'alpacadatav1/T.{self.symbol}', 'trade_updates'])
+        conn.run([f'alpacadatav1/T.{self.symbol}', 'trade_updates'])
 
     def process_current_tick(self, tick_open, tick_close):
         # Update streak info
