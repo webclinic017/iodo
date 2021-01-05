@@ -104,7 +104,7 @@ def marketMenu(account, api, conn, conn2):
                     marketMenu(account, api, conn, conn2)
             elif userAction == 4:
                 displayMarketMenu()
-                portfolio(account)
+                portfolio(api)
                 ticker = str(input('Enter the ticker of the stock you would like to sell or 0 to exit: '))
                 if ticker == '0':
                     displayMarketMenu()
