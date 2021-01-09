@@ -87,7 +87,7 @@ class MartingaleTrader(object):
         @conn.on(r'A$', [self.symbol])
         async def handle_agg(conn, channel, data):
             self.tick_index = (self.tick_index + 1) % self.tick_size
-            print('A')
+            #print('A')
             if self.tick_index == 0:
                 # It's time to update
 
@@ -102,7 +102,7 @@ class MartingaleTrader(object):
         @conn.on(r'T\..+', [self.symbol])
         async def handle_alpaca_aggs(conn, channel, data):
             now = datetime.datetime.utcnow()
-            print('T')
+            #print('T')
             if now - self.last_trade_time < datetime.timedelta(seconds=1):
                 # don't react every tick unless at least 1 second past
                 return
@@ -122,7 +122,7 @@ class MartingaleTrader(object):
         @conn.on(r'trade_updates')
         async def handle_trade(conn, channel, data):
             symbol = data.order['symbol']
-            print('U')
+            #print('U')
             if symbol != self.symbol:
                 # The order was for a position unrelated to this script
                 return

@@ -1,8 +1,8 @@
 import os
 import time
 import datetime
-import threading
-import multiprocessing
+#import threading
+#import multiprocessing
 
 def viewStock(api, tickers):
     tickerList = sorted(tickers.split())
@@ -64,7 +64,24 @@ def viewOrders(conn, api):
     #t2.start()
     #t1.join()
     #t2.join()
+
+    @conn.on(r'trade_updates')
+    async def on_msg(conn, data, symbol):
+        symbol = data.order['symbol']
+        event = data.event
+        print('Order executed for', symbol, data.order['side'], event, data.order['filled_qty'])
+
+    async def ainput(string: str) -> str:
+        await asyncio.get_event_loop().run_in_executor(
+            None, lambda s=string: sys.stdout.write(s+' '))
+        return await asyncio.get_event_loop().run_in_executor(
+            None, sys.stdin.readline)
+        print('1:', s, ':1')
+        if s == '0':
+            return
     
+    conn.run(['trade_updates'])
+   
     return
 
 

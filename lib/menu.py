@@ -33,15 +33,15 @@ def menu(account, api, conn, conn2):
                 displayMarketMenu()
                 marketMenu(account, api, conn, conn2)
             elif userAction == 4:
-                ticker  = str(input('Enter the ticker you would like to trade or 0 to exit: '))
-                if ticker == '0':
+                symbol = str(input('Enter the ticker you would like to trade or 0 to exit: '))
+                if symbol == '0':
                     displayMenu()
                     menu(account, api, conn, conn2)
                 else:
                     print('Initilizing...')
                     os.system('cls' if os.name == 'nt' else 'clear')
                     #trade(api, ticker.upper(), capital)
-                    trade = MartingaleTrader(api,conn2,ticker)
+                    trade = MartingaleTrader(api,conn2,symbol.upper())
                     trade.start_trading()
                     #displayMenu()
                     #print('Trades have been logged and are available in /data/tradelogs-xxxxxxxx.txt')
